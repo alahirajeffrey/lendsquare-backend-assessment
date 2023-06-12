@@ -2,6 +2,13 @@
 
 Assessment for lendsquare's backend engineer task
 
+## Features
+
+- Authentication
+- Authorization
+- Rate limiting
+- Automated testing
+
 ## Authentication Endpoints
 
 ### **Register a New User**

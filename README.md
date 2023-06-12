@@ -32,7 +32,9 @@ Assessment for lendsquare's backend engineer task
 ```json
 {
   "email": "johndoe@gmail.com",
-  "password": "password123"
+  "password": "password123",
+  "firstName": "John",
+  "lastName": "Doe"
 }
 ```
 

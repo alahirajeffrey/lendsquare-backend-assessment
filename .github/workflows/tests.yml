@@ -1,14 +1,32 @@
 name: Run Tests
 
 on:
-  pull_request:
-    branches: [main]
   push:
     branches: [main]
+
+env:
+  MYSQL_DATABASE: "test"
+  MYSQL_USER: "mysql"
+  MYSQL_PASSWORD: "password"
+
+  JWT_SECRET: "secret"
+  EXPIRESIN: "15m"
+  PORT: "3000"
 
 jobs:
   tests:
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: woahbase/alpine-mysql:latest
+        env:
+          MYSQL_DATABASE: "test"
+          MYSQL_USER: "mysql"
+          MYSQL_PASSWORD: "password"
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - name: check out repository and setup node
@@ -21,6 +39,9 @@ jobs:
 
       - name: install dependencies
         run: npm install
+
+      - name: run migrations
+        run: npm run dev:migrations
 
       - name: run tests
         run: npm run test

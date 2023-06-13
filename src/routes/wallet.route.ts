@@ -7,7 +7,7 @@ import { validateCreateWallet } from "../middlewares/validations.middleware";
 
 const walletRouter = Router();
 
-walletRouter.patch(
+walletRouter.post(
   "/create-wallet",
   passport.authenticate("jwt", { session: false }),
   validate(validateCreateWallet, {}, {}),

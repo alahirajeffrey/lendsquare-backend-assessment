@@ -10,6 +10,7 @@ const db = knex({
     user: process.env.MYSQL_USER || "mysql",
     password: process.env.MYSQL_PASSWORD || "password",
     database: process.env.MYSQL_DATABASE || "test",
+    port: 3306,
   },
 });
 

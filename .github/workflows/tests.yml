@@ -30,12 +30,15 @@ jobs:
       - name: install dependencies
         run: npm install
 
-      - name: setup database
+      - name: setup mysql
         uses: shogo82148/actions-setup-mysql@v1
         with:
           password: "password"
           user: "mysql"
           database: "test"
+
+      - name: create database
+        run: mysql -h 127.0.0.1 --port 3306 -u mysql -p password -e 'CREATE DATABASE IF NOT EXISTS test;'
 
       - name: run migrations
         run: npm run dev:migrations

@@ -16,10 +16,21 @@ export const validateLoginUser = {
   }),
 };
 
-export const validateFundAccount = {};
+export const validateFundAccount = {
+  body: Joi.object({
+    amount: Joi.number().required(),
+  }),
+  params: Joi.object({
+    walletId: Joi.string().uuid().required(),
+  }),
+};
 
 export const validateTransfer = {};
 
 export const validateWithdrawal = {};
 
-export const validateCreateWallet = {};
+export const validateCreateWallet = {
+  body: Joi.object({
+    userId: Joi.string().uuid().required(),
+  }),
+};

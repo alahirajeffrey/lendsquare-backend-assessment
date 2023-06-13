@@ -31,11 +31,11 @@ jobs:
         run: npm install
 
       - name: setup database
-        uses: mirromutth/mysql-action@v1.1
+        uses: shogo82148/actions-setup-mysql@v1
         with:
-          mysql password: "password"
-          mysql user: "mysql"
-          mysql database: "test"
+          password: "password"
+          user: "mysql"
+          database: "test"
 
       - name: run migrations
         run: npm run dev:migrations

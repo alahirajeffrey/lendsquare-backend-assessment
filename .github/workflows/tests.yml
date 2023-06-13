@@ -7,7 +7,6 @@ on:
 env:
   MYSQL_DATABASE: "test"
   MYSQL_USER: "mysql"
-  MYSQL_PASSWORD: "password"
   MYSQL_HOST: "localhost"
 
   JWT_SECRET: "secret"
@@ -24,7 +23,6 @@ jobs:
         env:
           MYSQL_DATABASE: "test"
           MYSQL_USER: "mysql"
-          MYSQL_PASSWORD: "password"
           MYSQL_HOST: "localhost"
 
         ports:

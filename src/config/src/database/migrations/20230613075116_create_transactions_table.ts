@@ -1,15 +1,18 @@
 import { Knex } from "knex";
 
 export async function up(knex: Knex): Promise<void> {
-  await knex.schema.createTable("users", (table) => {
+  await knex.schema.createTable("transactions", (table) => {
     table.uuid("id").primary().defaultTo(knex.raw("uuid_generate_v4()"));
-    table.string("sender_wallet_id");
-    table.string("reciever_wallet_id");
+    table.string("senderWalletId").references("wallets.id").onDelete("CASCADE");
     table
-      .enum("transaction_type", ["fund", "transfer", "withdrawal"])
+      .string("recieverWalletId")
+      .references("wallets.id")
+      .onDelete("CASCADE");
+    table
+      .enum("transactionType", ["fund", "transfer", "withdrawal"])
       .notNullable()
       .defaultTo("fund");
-    table.timestamp("transaction_time").defaultTo(knex.fn.now());
+    table.timestamp("transactionTime").defaultTo(knex.fn.now());
   });
 }
 

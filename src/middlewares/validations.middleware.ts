@@ -21,3 +21,5 @@ export const validateFundAccount = {};
 export const validateTransfer = {};
 
 export const validateWithdrawal = {};
+
+export const validateCreateWallet = {};

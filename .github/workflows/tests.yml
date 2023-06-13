@@ -12,22 +12,10 @@ env:
 
   JWT_SECRET: "secret"
   EXPIRESIN: "15m"
-  PORT: "3000"
+  # PORT: "3000"
 
 jobs:
   tests:
-    services:
-      mysql:
-        image: woahbase/alpine-mysql:latest
-        env:
-          MYSQL_DATABASE: "test"
-          MYSQL_USER: "mysql"
-          MYSQL_HOST: "localhost"
-          MYSQL_PASSWORD: "password"
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
     runs-on: ubuntu-latest
 
     steps:
@@ -39,11 +27,15 @@ jobs:
         with:
           node-version: "16.x"
 
-      - name: setup database
-        run: mysql -h 127.0.0.1 --port 3306 -u mysql -p password -e 'CREATE DATABASE IF NOT EXISTS test;'
-
       - name: install dependencies
         run: npm install
+
+      - name: setup database
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql password: "password"
+          mysql user: "mysql"
+          mysql database: "test"
 
       - name: run migrations
         run: npm run dev:migrations

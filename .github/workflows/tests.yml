@@ -8,6 +8,7 @@ env:
   MYSQL_DATABASE: "test"
   MYSQL_USER: "mysql"
   MYSQL_HOST: "localhost"
+  MYSQL_PASSWORD: "password"
 
   JWT_SECRET: "secret"
   EXPIRESIN: "15m"
@@ -24,7 +25,7 @@ jobs:
           MYSQL_DATABASE: "test"
           MYSQL_USER: "mysql"
           MYSQL_HOST: "localhost"
-
+          MYSQL_PASSWORD: "password"
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3

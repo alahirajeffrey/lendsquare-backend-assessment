@@ -1,22 +1,28 @@
-// import prisma from "./prisma.config";
-// import { ExtractJwt, Strategy } from "passport-jwt";
-// import passport from "passport";
+import { ExtractJwt, Strategy } from "passport-jwt";
+import passport from "passport";
+import db from "../knexfile";
 
-// const ACCESS_TOKEN_SECRET = process.env.JWT_SECRET || "access_secret";
+const ACCESS_TOKEN_SECRET = process.env.JWT_SECRET || "access_secret";
 
-// const opts = {
-//   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-//   secretOrKey: ACCESS_TOKEN_SECRET,
-// };
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: ACCESS_TOKEN_SECRET,
+};
 
-// // setup jwt passport strategy
-// passport.use(
-//   new Strategy(opts, async (jwtPayload, done) => {
-//     const user = await prisma.user.findFirstOrThrow({
-//       where: { id: jwtPayload.id },
-//     });
-//     if (user) {
-//       return done(null, user);
-//     }
-//   })
-// );
+const jwtStrategy = new Strategy(jwtOptions, async (payload, done) => {
+  try {
+    // Find the user based on the user id
+    const user = await db("users").where("id", payload.sub).first();
+
+    // return false if user is not founf
+    if (!user) {
+      return done(null, false);
+    }
+  } catch (error) {
+    return done(error, false);
+  }
+});
+
+passport.use(jwtStrategy);
+
+// export default passport;

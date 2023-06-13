@@ -16,7 +16,7 @@ import {
 const transactionRouter = Router();
 
 transactionRouter.patch(
-  "/fund-account",
+  "/fund-account/:walletId",
   passport.authenticate("jwt", { session: false }),
   validate(validateFundAccount, {}, {}),
   fundAccount

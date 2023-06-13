@@ -39,8 +39,8 @@ jobs:
         with:
           node-version: "16.x"
 
-      - name: setup mysql
-        run: mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e 'CREATE DATABASE IF NOT EXISTS test;'
+      - name: setup database
+        run: mysql -h 127.0.0.1 --port 3306 -u root -password -e 'CREATE DATABASE IF NOT EXISTS test;'
 
       - name: install dependencies
         run: npm install

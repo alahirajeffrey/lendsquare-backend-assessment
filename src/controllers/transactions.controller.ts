@@ -17,17 +17,8 @@ export const fundAccount = async (
     const { amount } = req.body;
 
     // check if wallet exists
-    const [walletExists] = await db("wallets").where({ walletId: walletId });
-    if (!walletExists) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ message: "you cannot fund an account that does not exitst" });
-    }
-
-    // fund account
-    await db("wallets")
-      .where({ walletId: walletId })
-      .update({ balance: amount });
+    //Check current account balance
+    //update account balance
 
     return res.status(StatusCodes.OK).json({ message: "account funded" });
   } catch (error: any) {
@@ -38,19 +29,48 @@ export const fundAccount = async (
 };
 
 /**
- *
+ *  transfer funds to another user
  * @param req
  * @param res
  */
-export const transferFunds = async (req: Request, res: Response) => {
-  res.status(StatusCodes.OK).json({ message: "transfer successful" });
+export const transferFunds = async (
+  req: Request,
+  res: Response
+): Promise<Response<ApiResponse>> => {
+  try {
+    //check if sender and reciever's wallets exist
+    // get sender's and reciever's balances
+    // check if user has sufficient balance
+    // determine current balance of both sender and reciepient
+    // use transactions scoping to update sender's abnd reciepient's accounts
+    return res.status(StatusCodes.OK).json({ message: "transfer successful" });
+  } catch (error: any) {
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: error.message });
+  }
 };
 
 /**
- *
+ *  withdraw funds
  * @param req
  * @param res
  */
-export const withdrawal = async (req: Request, res: Response) => {
-  res.status(StatusCodes.OK).json({ message: "withdrawal successful" });
+export const withdrawal = async (
+  req: Request,
+  res: Response
+): Promise<Response<ApiResponse>> => {
+  try {
+    // check if wallet exists
+    // check if user has sufficient balance
+    // determing balance after withdrawal
+    // update account
+    return res
+      .status(StatusCodes.OK)
+      .json({ message: "withdrawal successful" });
+  } catch (error: any) {
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: error.message });
+  }
 };

@@ -25,14 +25,14 @@ transactionRouter.patch(
 transactionRouter.patch(
   "/transfer",
   passport.authenticate("jwt", { session: false }),
-  validate(validateTransfer, {}, {}),
+  // validate(validateTransfer, {}, {}),
   transferFunds
 );
 
 transactionRouter.patch(
   "/withdrawal",
   passport.authenticate("jwt", { session: false }),
-  validate(validateWithdrawal, {}, {}),
+  // validate(validateWithdrawal, {}, {}),
   withdrawal
 );
 

@@ -60,7 +60,7 @@ export const registerUser = async (
     return res.status(StatusCodes.CREATED).json({
       message: "user registered successfully",
       data: {
-        userId: user.id,
+        id: user.id,
         email: user.email,
         firstName: firstName,
         lastName: lastName,

@@ -1,22 +1,23 @@
-import dotenv from "dotenv";
-
-dotenv.config();
+import config from "../config/config";
+require("ts-node/register");
 
 module.exports = {
   development: {
-    client: "mysql2",
+    client: "mysql",
     connection: {
-      host: process.env.MYSQL_HOST || "localhost",
-      user: process.env.MYSQL_USER || "mysql",
-      password: process.env.MYSQL_PASSWORD || "password",
-      database: process.env.MYSQL_DATABASE || "test",
+      host: config.MYSQL_HOST,
+      user: config.MYSQL_USER,
+      password: config.MYSQL_PASSWORD,
+      database: config.MYSQL_DATABASE,
+      port: config.MYSQL_PORT,
     },
     migrations: {
-      directory: "./src/database/migrations",
+      directory: "../database/migrations",
     },
     seeds: {
-      directory: "./src/database/seeds",
+      directory: "../database/seeds",
     },
+    setTimeout: 1000000,
   },
   // Add other environments if needed (e.g., production, testing)
 };

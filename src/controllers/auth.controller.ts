@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 import { ApiResponse } from "../types/response.type";
 import jwt from "jsonwebtoken";
 import db from "../knexfile";
-import logger from "../helpers/logger";
 import config from "../config/config";
 import * as uuid from "uuid";
 import { User } from "../types/user.type";
@@ -58,9 +57,15 @@ export const registerUser = async (
     // save to db
     await db.queryBuilder().insert(user).into("users");
 
-    return res
-      .status(StatusCodes.CREATED)
-      .json({ message: "user registered successfully" });
+    return res.status(StatusCodes.CREATED).json({
+      message: "user registered successfully",
+      data: {
+        userId: user.id,
+        email: user.email,
+        firstName: firstName,
+        lastName: lastName,
+      },
+    });
   } catch (error: any) {
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)

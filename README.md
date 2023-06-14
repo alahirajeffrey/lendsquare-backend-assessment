@@ -66,6 +66,8 @@ $ npm run start
 $ npm run test
 ```
 
+## Database design
+
 ## Authentication Endpoints
 
 ### **Register a New User**

@@ -5,18 +5,21 @@ import { ApiResponse } from "../types/response.type";
 import jwt from "jsonwebtoken";
 import db from "../knexfile";
 import logger from "../helpers/logger";
-
-const ACCESS_TOKEN_SECRET = process.env.JWT_SECRET || "access_secret";
-const REFRESH_TOKEN_SECRET = process.env.JWT_SECRET || "refresh_secret";
-const ACCESS_EXPIRESIN = process.env.EXPIRESIN || "1d";
-const REFRESH_EXPIRESIN = process.env.EXPIRESIN || "1d";
+import config from "../config/config";
+import * as uuid from "uuid";
+import { User } from "../types/user.type";
 
 /**
  * check if user exists
  * @param email : string
  */
-const checkUserExistsByEmail = async (email: string) => {
-  return await db("users").where({ email: email }).first();
+const checkUserExistsByEmail = async (email: string): Promise<User> => {
+  return await db
+    .queryBuilder()
+    .select()
+    .from("users")
+    .where({ email: email })
+    .first();
 };
 
 /**
@@ -33,11 +36,7 @@ export const registerUser = async (
     const { email, password, firstName, lastName } = req.body;
 
     // ensure two users cannot register with same email
-    const [userExists] = await checkUserExistsByEmail(email);
-
-    // remove later
-    logger.log(userExists);
-
+    const userExists = await checkUserExistsByEmail(email);
     if (userExists) {
       return res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -48,13 +47,16 @@ export const registerUser = async (
     const saltRounds = 12;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // save to db
-    await db("users").insert({
+    const user = {
+      id: uuid.v4(),
       firstName: firstName,
       lastName: lastName,
       password: hashedPassword,
       email: email,
-    });
+    };
+
+    // save to db
+    await db.queryBuilder().insert(user).into("users");
 
     return res
       .status(StatusCodes.CREATED)
@@ -82,9 +84,6 @@ export const loginUser = async (
     //check if user exists
     const userExists = await checkUserExistsByEmail(email);
 
-    // remove later
-    logger.log(userExists);
-
     if (!userExists)
       return res
         .status(StatusCodes.NOT_FOUND)
@@ -99,18 +98,15 @@ export const loginUser = async (
     }
 
     // generate access tokens if password match
-    const accessToken = jwt.sign({ id: userExists.id }, ACCESS_TOKEN_SECRET, {
-      expiresIn: ACCESS_EXPIRESIN,
-    });
+    const accessToken = jwt.sign(
+      { id: userExists.id },
+      config.JWT_SECRET || "secret",
+      {
+        expiresIn: config.EXPIRES_IN,
+      }
+    );
 
-    // generate refresh tokens
-    const refreshToken = jwt.sign({ id: userExists.id }, REFRESH_TOKEN_SECRET, {
-      expiresIn: REFRESH_EXPIRESIN,
-    });
-
-    return res
-      .status(StatusCodes.OK)
-      .json({ accessToken: accessToken, refreshToken: refreshToken });
+    return res.status(StatusCodes.OK).json({ accessToken: accessToken });
   } catch (error: any) {
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)

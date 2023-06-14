@@ -43,6 +43,12 @@ Assessment for lendsquare's backend engineer task
 ```json
 {
   "message": "user registered successfully"
+   "data" : {
+    "userId":"5c32fe74-3986-4e20-b054-4e6a15d848bb",
+    "firstName":"John",
+    "lastName":"Doe",
+    "email":"johndoe@gmail.com"
+
 }
 ```
 
@@ -68,4 +74,34 @@ Assessment for lendsquare's backend engineer task
 ```json
 {
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+## Wallet Endpoints
+
+### **Crate a waller**
+
+**URL:** `/api/v1/wallet/create-wallet`
+
+**Method:** `POST`
+
+**Description:** Create a new waller.
+
+**Request Body:**
+
+```json
+{
+  "userId": "5c32fe74-3986-4e20-b054-4e6a15d848bb"
+}
+```
+
+**Response:**
+
+```json
+{
+  "message": "wallet created"
+   "data" : {
+    "walletId":"6bd32e74-2386-rf20-b054-4e6a15d848bb",
+    "balance":"John",
+
+}
 ```

@@ -4,22 +4,24 @@ import server from "../src/server";
 describe("Auth test", () => {
   describe("POST /api/v1/auth/register", () => {
     it("should register a new user and return a 201 response", async () => {
-      await request(server)
+      const response = await request(server)
         .post("/api/v1/auth/register")
         .send({
-          email: "johndoe@gmail.com",
+          email: "johndoe@email.com",
           firstName: "John",
           lastName: "Doe",
           password: "passworded",
         })
         .expect(201);
+      expect(response.body).toHaveProperty("message");
+      expect(response.body).toHaveProperty("data");
     });
 
     it("should return a 500 error if user already exists", async () => {
       const response = await request(server)
         .post("/api/v1/auth/register")
         .send({
-          email: "johndoe@gmail.com",
+          email: "johndoe@email.com",
           firstName: "John",
           lastName: "Doe",
           password: "passworded",
@@ -36,7 +38,7 @@ describe("Login test", () => {
       await request(server)
         .post("/api/v1/auth/login")
         .send({
-          email: "johndoe@gmail.com",
+          email: "johndoe@email.com",
           password: "passworded",
         })
         .expect(200);
@@ -46,7 +48,7 @@ describe("Login test", () => {
       const response = await request(server)
         .post("/api/v1/auth/login")
         .send({
-          email: "johndoe@gmail.com",
+          email: "johndoe@email.com",
           password: "passworded2",
         })
         .expect(401);
@@ -57,7 +59,7 @@ describe("Login test", () => {
       const response = await request(server)
         .post("/api/v1/auth/login")
         .send({
-          email: "johndoe2@gmail.com",
+          email: "johndoe@gmail.com",
           password: "passworded2",
         })
         .expect(404);

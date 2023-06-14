@@ -1,6 +1,13 @@
-# lendsquare-backend-assessment
+# lendsqr-backend-assessment
 
-Assessment for lendsquare's backend engineer task
+**Assessment for lendsquare's backend engineer task**
+
+The goal of this project is to create an minimum viable product for demo credit which is a mobile lending app with wallet functionality so as to enable users
+
+- create accounts
+- fund accounts
+- transfer funds to other users accounts
+- withdraw funds
 
 ## Requirements
 
@@ -16,6 +23,48 @@ Assessment for lendsquare's backend engineer task
 - Authorization
 - Rate limiting
 - Automated testing
+
+## How to Setup
+
+### Installation
+
+```
+$ npm install
+```
+
+### Running migrations
+
+```
+# development
+$ npm run dev:migrate
+```
+
+```
+# development
+$ npm run prod:migrate
+```
+
+### Running the app
+
+```
+# development
+$ npm run dev
+```
+
+```
+# build
+$ npm run build
+```
+
+```
+# production
+$ npm run start
+```
+
+```
+# testing
+$ npm run test
+```
 
 ## Authentication Endpoints
 

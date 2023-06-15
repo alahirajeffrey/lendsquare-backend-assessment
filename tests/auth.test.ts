@@ -1,5 +1,11 @@
 import request from "supertest";
 import server from "../src/server";
+import db from "../src/knexfile";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import * as authControllers from "../src/controllers/auth.controller";
+import { ApiResponse } from "../src/types/response.type";
+import { Response } from "express";
 
 describe("Auth test", () => {
   describe("POST /api/v1/auth/register", () => {

@@ -4,12 +4,12 @@ export async function up(knex: Knex): Promise<any> {
   return await knex.schema.createTable(
     "transactions",
     (table: Knex.TableBuilder) => {
-      table.uuid("id").primary().defaultTo(knex.raw("uuid_generate_v4()"));
+      table.string("id").primary();
       table
         .string("senderWalletId")
         .references("wallets.id")
         .onDelete("CASCADE");
-      table.string("recieverWalletId");
+      table.string("recieverWalletId").nullable();
       table
         .enum("transactionType", ["fund", "transfer", "withdrawal"])
         .notNullable()

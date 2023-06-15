@@ -1,6 +1,6 @@
 export type Wallet = {
   id: string;
   userId: string;
-  balance: Number;
+  balance: number;
   createdAt: Date;
 };

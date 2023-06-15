@@ -34,3 +34,9 @@ export const validateCreateWallet = {
     userId: Joi.string().uuid().required(),
   }),
 };
+
+export const validateGetWalletDetails = {
+  params: Joi.object({
+    walletId: Joi.string().uuid().required(),
+  }),
+};

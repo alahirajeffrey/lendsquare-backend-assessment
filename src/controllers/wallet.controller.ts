@@ -73,7 +73,6 @@ export const getWalletDetailsWithUserId = async (
   try {
     const { userId } = req.params;
 
-    logger.info(userId);
     // check if wallet exists
     const walletExists = await checkWalletExists(userId);
     if (!walletExists) {

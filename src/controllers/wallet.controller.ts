@@ -4,6 +4,7 @@ import { ApiResponse } from "../types/response.type";
 import db from "../knexfile";
 import { Wallet } from "../types/wallet.type";
 import * as uuid from "uuid";
+import logger from "../helpers/logger";
 
 /**
  * checks if a user already has a wallet
@@ -51,6 +52,41 @@ export const createWallet = async (
       data: {
         walletId: walletId,
         balance: 0,
+      },
+    });
+  } catch (error: any) {
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: error.message });
+  }
+};
+
+/**
+ *  get wallet details via user id
+ * @param req: request object containing userId params
+ * @param res: response object
+ */
+export const getWalletDetailsWithUserId = async (
+  req: Request,
+  res: Response
+): Promise<Response<ApiResponse>> => {
+  try {
+    const { userId } = req.params;
+
+    logger.info(userId);
+    // check if wallet exists
+    const walletExists = await checkWalletExists(userId);
+    if (!walletExists) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "wallet does not exist" });
+    }
+    return res.status(StatusCodes.OK).json({
+      message: "wallet found",
+      data: {
+        id: walletExists.id,
+        balance: walletExists.balance,
+        createdAt: walletExists.createdAt,
       },
     });
   } catch (error: any) {

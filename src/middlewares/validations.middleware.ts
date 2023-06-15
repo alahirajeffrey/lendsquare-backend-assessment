@@ -25,10 +25,6 @@ export const validateFundAccount = {
   }),
 };
 
-export const validateTransfer = {};
-
-export const validateWithdrawal = {};
-
 export const validateCreateWallet = {
   body: Joi.object({
     userId: Joi.string().uuid().required(),
@@ -44,5 +40,24 @@ export const validateGetWalletDetails = {
 export const validateGetWalletTransactions = {
   params: Joi.object({
     walletId: Joi.string().uuid().required(),
+  }),
+};
+
+export const validateWithdrawal = {
+  body: Joi.object({
+    amount: Joi.number().required(),
+  }),
+  params: Joi.object({
+    walletId: Joi.string().uuid().required(),
+  }),
+};
+
+export const validateTransfer = {
+  body: Joi.object({
+    amount: Joi.number().required(),
+  }),
+  params: Joi.object({
+    senderWalletId: Joi.string().uuid().required(),
+    recieverWalletId: Joi.string().uuid().required(),
   }),
 };

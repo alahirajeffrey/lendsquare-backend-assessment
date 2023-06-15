@@ -233,31 +233,36 @@ export const transferFunds = async (
 
     // use transactions scoping to update sender's abnd reciepient's accounts
     db.transaction(async (trx) => {
-      // update wallet balances
-      await trx
-        .queryBuilder()
-        .update({ balance: senderWalletBalanceAfterTransfer })
-        .where("id", senderWalletId);
+      try {
+        // update wallet balances
+        await trx
+          .queryBuilder()
+          .update({ balance: senderWalletBalanceAfterTransfer })
+          .where("id", senderWalletId);
 
-      await trx
-        .queryBuilder()
-        .update({ balance: recieverWalletBalanceAfterTransfer })
-        .where("id", recieverWalletId);
+        await trx
+          .queryBuilder()
+          .update({ balance: recieverWalletBalanceAfterTransfer })
+          .where("id", recieverWalletId);
 
-      // create transaction object
-      const transactionDetails = {
-        id: uuid.v4(),
-        senderWalletId: senderWalletId,
-        recieverWalletId: recieverWalletId,
-        transactionType: "transfer",
-      };
+        // create transaction object
+        const transactionDetails = {
+          id: uuid.v4(),
+          senderWalletId: senderWalletId,
+          recieverWalletId: recieverWalletId,
+          transactionType: "transfer",
+        };
 
-      // save wallet transaction to db
-      await trx.queryBuilder().insert(transactionDetails);
+        // save wallet transaction to db
+        await trx.queryBuilder().insert(transactionDetails);
 
-      // commit database transaction
-      await trx.commit();
-      logger.info("Transaction committed successfully");
+        // commit database transaction
+        await trx.commit();
+        logger.info("Transaction committed successfully");
+      } catch (error: any) {
+        await trx.rollback();
+        logger.error(`Knex transaction failed : ${error.messager}`);
+      }
     });
     return res.status(StatusCodes.OK).json({ message: "transfer successful" });
   } catch (error: any) {

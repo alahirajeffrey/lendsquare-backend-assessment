@@ -99,7 +99,7 @@ $ npm run test
     "firstName":"John",
     "lastName":"Doe",
     "email":"johndoe@gmail.com"
-
+   }
 }
 ```
 
@@ -125,17 +125,18 @@ $ npm run test
 ```json
 {
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
 ```
 
 ## Wallet Endpoints
 
-### **Crate a waller**
+### **Create a wallet**
 
 **URL:** `/api/v1/wallet/create-wallet`
 
 **Method:** `POST`
 
-**Description:** Create a new waller.
+**Description:** Create a new wallet.
 
 **Request Body:**
 
@@ -152,7 +153,163 @@ $ npm run test
   "message": "wallet created"
    "data" : {
     "walletId":"6bd32e74-2386-rf20-b054-4e6a15d848bb",
-    "balance":"John",
+    "balance":0,
+    }
+}
+```
 
+### **Get wallet**
+
+**URL:** `/api/v1/wallet/user/:walletId`
+
+**Method:** `GET`
+
+**Description:** Get a user's wallet via user id.
+
+**Request Params:**
+
+```json
+{
+  "walletId": "5c32fe74-3986-4e20-b054-4e6a15d848bb"
+}
+```
+
+**Response:**
+
+```json
+{
+  "message": "wallet found"
+   "data" : {
+    "walletId":"6bd32e74-2386-rf20-b054-4e6a15d848bb",
+    "balance":0,
+    "createdAt": 17/5/2022
+   }
+}
+```
+
+## Transaction Endpoints
+
+### **Get wallet transactions**
+
+**URL:** `/api/v1/transaction/wallet/:walletId`
+
+**Method:** `GET`
+
+**Description:** Get all a wallet's transactions.
+
+**Request Params:**
+
+```json
+{
+  "walletId": "5c32fe74-3986-4e20-b054-4e6a15d848bb"
+}
+```
+
+**Response:**
+
+```json
+{
+  "message": "transaction details"
+   "data" :[
+    {},
+    {}
+   ]
+}
+```
+
+### **Fund wallet**
+
+**URL:** `/api/v1/transactions/fund-account/wallet/:walletId`
+
+**Method:** `PATCH`
+
+**Description:** Fund a user's wallet.
+
+**Request Params:**
+
+```json
+{
+  "walletId": "5c32fe74-3986-4e20-b054-4e6a15d848bb"
+}
+```
+
+**Request Body:**
+
+```json
+{
+  "amount": 500
+}
+```
+
+**Response:**
+
+```json
+{
+  "message": "account funded"
+}
+```
+
+### **Transfer funds**
+
+**URL:** `/api/v1/transactions/transfer/wallet/:senderWalletId/:recieverWalletId`
+
+**Method:** `PATCH`
+
+**Description:** Transfer funds to another wallet.
+
+**Request Params:**
+
+```json
+{
+  "senderWalletId": "5c32fe74-3986-4e20-b054-4e6a15d848bb"
+  "recieverWalletId": "5c32fe74-3986-4e20-b054-4e6a15d848bb"
+}
+```
+
+**Request Body:**
+
+```json
+{
+  "amount": 500
+}
+```
+
+**Response:**
+
+```json
+{
+  "message": "transfer successful"
+}
+```
+
+### **Withdraw funds**
+
+**URL:** `/api/v1/transactions/withdrawal/wallet/:walletId`
+
+**Method:** `PATCH`
+
+**Description:** Withdraw funds from wallet.
+
+**Request Params:**
+
+```json
+{
+  "walletId": "5c32fe74-3986-4e20-b054-4e6a15d848bb"
+}
+```
+
+**Request Body:**
+
+```json
+{
+  "amount": 500
+}
+```
+
+**Response:**
+
+```json
+{
+  "message": "withdrawal successful"
 }
 ```

@@ -25,21 +25,21 @@ transactionRouter.get(
 );
 
 transactionRouter.patch(
-  "/fund-account/:walletId",
+  "/fund-account/wallet/:walletId",
   passport.authenticate("jwt", { session: false }),
   validate(validateFundAccount, {}, {}),
   fundAccount
 );
 
 transactionRouter.patch(
-  "/transfer/:senderWalletId/:recieverWalletId",
+  "/transfer/wallet/:senderWalletId/:recieverWalletId",
   passport.authenticate("jwt", { session: false }),
   validate(validateTransfer, {}, {}),
   transferFunds
 );
 
 transactionRouter.patch(
-  "/withdrawal/:walletId",
+  "/withdrawal/wallet/:walletId",
   passport.authenticate("jwt", { session: false }),
   validate(validateWithdrawal, {}, {}),
   withdrawal

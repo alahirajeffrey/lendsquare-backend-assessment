@@ -48,7 +48,7 @@ export const getWalletTransactions = async (
 
     return res
       .status(StatusCodes.OK)
-      .json({ message: "transaction details", data: { transactions } });
+      .json({ message: "transaction details", data: transactions });
   } catch (error: any) {
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)

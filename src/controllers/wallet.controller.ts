@@ -4,7 +4,6 @@ import { ApiResponse } from "../types/response.type";
 import db from "../knexfile";
 import { Wallet } from "../types/wallet.type";
 import * as uuid from "uuid";
-import logger from "../helpers/logger";
 
 /**
  * checks if a user already has a wallet
@@ -41,11 +40,14 @@ export const createWallet = async (
 
     // create wallet
     const walletId = uuid.v4();
-    await db("wallets").insert({
-      userId: userId,
-      balance: 0,
-      id: walletId,
-    });
+    await db
+      .queryBuilder()
+      .insert({
+        userId: userId,
+        balance: 0,
+        id: walletId,
+      })
+      .into("wallets");
 
     return res.status(StatusCodes.OK).json({
       message: "wallet created",

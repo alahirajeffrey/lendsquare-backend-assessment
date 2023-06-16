@@ -1,0 +1,316 @@
+{
+	"info": {
+		"_postman_id": "01851a71-b285-4b66-9312-cef99a7b3997",
+		"name": "lendsquare-backend-engineer-assessment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\":\"johndoe@gmail.com\",\r\n  \"firstName\" : \"john\",\r\n  \"lastName\":\"doe\",\r\n  \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://alahirajeffrey-lendsqr-be-test.onrender.com/api/v1/auth/register",
+					"protocol": "https",
+					"host": [
+						"alahirajeffrey-lendsqr-be-test",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"johndoe@gmail.com\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://alahirajeffrey-lendsqr-be-test.onrender.com/api/v1/auth/login",
+					"protocol": "https",
+					"host": [
+						"alahirajeffrey-lendsqr-be-test",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create wallet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZWYyNjM1LTMwYjQtNDAwYS05YzU1LTFiOGYyZTM4MDU2ZCIsImlhdCI6MTY4NjkyMDExMywiZXhwIjoxNjg2OTIxOTEzfQ.70m8IrP6b9Rom5YXKYLiNvieNi8JpxyfjPoDk-720LE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userId\":\"90ef2635-30b4-400a-9c55-1b8f2e38056d\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://alahirajeffrey-lendsqr-be-test.onrender.com/api/v1/wallet/create-wallet",
+					"protocol": "https",
+					"host": [
+						"alahirajeffrey-lendsqr-be-test",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wallet",
+						"create-wallet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fund account",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZWYyNjM1LTMwYjQtNDAwYS05YzU1LTFiOGYyZTM4MDU2ZCIsImlhdCI6MTY4NjkyMDExMywiZXhwIjoxNjg2OTIxOTEzfQ.70m8IrP6b9Rom5YXKYLiNvieNi8JpxyfjPoDk-720LE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\": 10000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://alahirajeffrey-lendsqr-be-test.onrender.com/api/v1/transaction/fund-account/wallet/cbb009ed-8474-46d2-bfa9-95417e3d93b2",
+					"protocol": "https",
+					"host": [
+						"alahirajeffrey-lendsqr-be-test",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction",
+						"fund-account",
+						"wallet",
+						"cbb009ed-8474-46d2-bfa9-95417e3d93b2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "withdrawal",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZWYyNjM1LTMwYjQtNDAwYS05YzU1LTFiOGYyZTM4MDU2ZCIsImlhdCI6MTY4NjkyMDExMywiZXhwIjoxNjg2OTIxOTEzfQ.70m8IrP6b9Rom5YXKYLiNvieNi8JpxyfjPoDk-720LE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\": 5000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://alahirajeffrey-lendsqr-be-test.onrender.com/api/v1/transaction/withdrawal/wallet/cbb009ed-8474-46d2-bfa9-95417e3d93b2",
+					"protocol": "https",
+					"host": [
+						"alahirajeffrey-lendsqr-be-test",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction",
+						"withdrawal",
+						"wallet",
+						"cbb009ed-8474-46d2-bfa9-95417e3d93b2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transfer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZWYyNjM1LTMwYjQtNDAwYS05YzU1LTFiOGYyZTM4MDU2ZCIsImlhdCI6MTY4NjkyMDExMywiZXhwIjoxNjg2OTIxOTEzfQ.70m8IrP6b9Rom5YXKYLiNvieNi8JpxyfjPoDk-720LE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\": 500\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://alahirajeffrey-lendsqr-be-test.onrender.com/api/v1/transaction/transfer/wallet/cbb009ed-8474-46d2-bfa9-95417e3d93b2/c124c0bc-8a5e-4c72-bf28-09f618fb4b53",
+					"protocol": "https",
+					"host": [
+						"alahirajeffrey-lendsqr-be-test",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction",
+						"transfer",
+						"wallet",
+						"cbb009ed-8474-46d2-bfa9-95417e3d93b2",
+						"c124c0bc-8a5e-4c72-bf28-09f618fb4b53"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get wallet details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZWYyNjM1LTMwYjQtNDAwYS05YzU1LTFiOGYyZTM4MDU2ZCIsImlhdCI6MTY4NjkyMDExMywiZXhwIjoxNjg2OTIxOTEzfQ.70m8IrP6b9Rom5YXKYLiNvieNi8JpxyfjPoDk-720LE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://alahirajeffrey-lendsqr-be-test.onrender.com/api/v1/wallet/user/90ef2635-30b4-400a-9c55-1b8f2e38056d",
+					"protocol": "https",
+					"host": [
+						"alahirajeffrey-lendsqr-be-test",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wallet",
+						"user",
+						"90ef2635-30b4-400a-9c55-1b8f2e38056d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get wallet transactions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZWYyNjM1LTMwYjQtNDAwYS05YzU1LTFiOGYyZTM4MDU2ZCIsImlhdCI6MTY4NjkyMDExMywiZXhwIjoxNjg2OTIxOTEzfQ.70m8IrP6b9Rom5YXKYLiNvieNi8JpxyfjPoDk-720LE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://alahirajeffrey-lendsqr-be-test.onrender.com/api/v1/transaction/wallet/cbb009ed-8474-46d2-bfa9-95417e3d93b2",
+					"protocol": "https",
+					"host": [
+						"alahirajeffrey-lendsqr-be-test",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction",
+						"wallet",
+						"cbb009ed-8474-46d2-bfa9-95417e3d93b2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

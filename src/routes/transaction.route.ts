@@ -32,7 +32,7 @@ transactionRouter.patch(
 );
 
 transactionRouter.patch(
-  "/transfer/wallet/:senderWalletId/:recieverWalletId",
+  "/transfer/wallet/:senderWalletId/:receiverWalletId",
   passport.authenticate("jwt", { session: false }),
   validate(validateTransfer, {}, {}),
   transferFunds

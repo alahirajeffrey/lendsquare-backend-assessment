@@ -87,25 +87,32 @@ export const fundAccount = async (
         //update account balance
         await trx
           .queryBuilder()
+          .into("wallets")
           .where("id", walletId)
           .update({ balance: balanceAfterFunding });
 
+        logger.info("raeching here");
         // create transaction object
         const transactionDetails = {
           id: uuid.v4(),
           senderWalletId: walletExists.id,
-          recieverWalletId: null,
+          receiverWalletId: null,
           transactionType: "fund",
+          amount: amount,
         };
 
         // save wallet transaction to db
-        await trx.queryBuilder().insert(transactionDetails);
+        await trx
+          .queryBuilder()
+          .into("transactions")
+          .insert(transactionDetails);
 
         await trx.commit();
         logger.info("Transaction committed successfully");
       } catch (error: any) {
         await trx.rollback();
-        logger.error(`Knex transaction failed : ${error.messager}`);
+        logger.error(`Knex transaction failed : ${error}`);
+        throw error;
       }
     });
 
@@ -140,7 +147,7 @@ export const withdrawal = async (
 
     // check if user has sufficient balance
     const walletBalance = walletExists.balance;
-    if (walletBalance > amount) {
+    if (walletBalance < amount) {
       return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ message: "insufficient balance" });
@@ -155,27 +162,32 @@ export const withdrawal = async (
         // update wallet balance
         await trx
           .queryBuilder()
+          .into("wallets")
           .update({ balance: balanceAfterWithdrawal })
           .where("id", walletExists.id);
 
-        // save transaction to database
         // create transaction object
         const transactionDetails = {
           id: uuid.v4(),
           senderWalletId: walletExists.id,
-          recieverWalletId: null,
+          receiverWalletId: null,
           transactionType: "withdrawal",
+          amount: amount,
         };
 
         // save wallet transaction to db
-        await trx.queryBuilder().insert(transactionDetails);
+        await trx
+          .queryBuilder()
+          .insert(transactionDetails)
+          .into("transactions");
 
         // commit database transaction
         await trx.commit();
         logger.info("Transaction committed successfully");
       } catch (error: any) {
         await trx.rollback();
-        logger.error(`Knex transaction failed : ${error.messager}`);
+        logger.error(`Knex transaction failed : ${error}`);
+        throw error;
       }
     });
 
@@ -199,8 +211,9 @@ export const transferFunds = async (
   res: Response
 ): Promise<Response<ApiResponse>> => {
   try {
-    const { senderWalletId, recieverWalletId } = req.params;
+    const { senderWalletId, receiverWalletId } = req.params;
     const { amount } = req.body;
+
     //check if sender and reciever's wallets exist
     const senderWalletExists = await checkWalletExists(senderWalletId);
     if (!senderWalletExists) {
@@ -209,7 +222,7 @@ export const transferFunds = async (
         .json({ message: "wallet does not exist" });
     }
 
-    const recieverWalletExists = await checkWalletExists(recieverWalletId);
+    const recieverWalletExists = await checkWalletExists(receiverWalletId);
     if (!recieverWalletExists) {
       return res
         .status(StatusCodes.NOT_FOUND)
@@ -238,23 +251,29 @@ export const transferFunds = async (
         await trx
           .queryBuilder()
           .update({ balance: senderWalletBalanceAfterTransfer })
-          .where("id", senderWalletId);
+          .where("id", senderWalletId)
+          .into("wallets");
 
         await trx
           .queryBuilder()
           .update({ balance: recieverWalletBalanceAfterTransfer })
-          .where("id", recieverWalletId);
+          .where("id", receiverWalletId)
+          .into("wallets");
 
         // create transaction object
         const transactionDetails = {
           id: uuid.v4(),
           senderWalletId: senderWalletId,
-          recieverWalletId: recieverWalletId,
+          receiverWalletId: receiverWalletId,
           transactionType: "transfer",
+          amount: amount,
         };
 
         // save wallet transaction to db
-        await trx.queryBuilder().insert(transactionDetails);
+        await trx
+          .queryBuilder()
+          .insert(transactionDetails)
+          .into("transactions");
 
         // commit database transaction
         await trx.commit();
@@ -262,6 +281,7 @@ export const transferFunds = async (
       } catch (error: any) {
         await trx.rollback();
         logger.error(`Knex transaction failed : ${error.messager}`);
+        throw error;
       }
     });
     return res.status(StatusCodes.OK).json({ message: "transfer successful" });

@@ -58,6 +58,6 @@ export const validateTransfer = {
   }),
   params: Joi.object({
     senderWalletId: Joi.string().uuid().required(),
-    recieverWalletId: Joi.string().uuid().required(),
+    receiverWalletId: Joi.string().uuid().required(),
   }),
 };

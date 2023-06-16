@@ -6,7 +6,7 @@ The goal of this project is to create an minimum viable product for demo credit 
 
 - create accounts
 - fund accounts
-- transfer funds to other users accounts
+- transfer funds to other users wallets
 - withdraw funds
 
 ## Requirements
@@ -67,6 +67,8 @@ $ npm run test
 ```
 
 ## Database design
+
+![](./assets/db.design.png)
 
 ## Authentication Endpoints
 
@@ -261,7 +263,7 @@ $ npm run test
 
 ```json
 {
-  "senderWalletId": "5c32fe74-3986-4e20-b054-4e6a15d848bb"
+  "senderWalletId": "5c32fe74-3986-4e20-b054-4e6a15d848bb",
   "recieverWalletId": "5c32fe74-3986-4e20-b054-4e6a15d848bb"
 }
 ```
@@ -311,5 +313,30 @@ $ npm run test
 ```json
 {
   "message": "withdrawal successful"
+}
+```
+
+### **Get transactions**
+
+**URL:** `/api/v1/transactions/wallet/:walletId`
+
+**Method:** `GET`
+
+**Description:** Get all wallet's transactions.
+
+**Request Params:**
+
+```json
+{
+  "walletId": "5c32fe74-3986-4e20-b054-4e6a15d848bb"
+}
+```
+
+**Response:**
+
+```json
+{
+  "message": "transaction details",
+  "data": [{}, {}]
 }
 ```

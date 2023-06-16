@@ -9,7 +9,8 @@ export async function up(knex: Knex): Promise<any> {
         .string("senderWalletId")
         .references("wallets.id")
         .onDelete("CASCADE");
-      table.string("recieverWalletId").nullable();
+      table.string("receiverWalletId").nullable();
+      table.integer("amount");
       table
         .enum("transactionType", ["fund", "transfer", "withdrawal"])
         .notNullable()

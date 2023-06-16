@@ -11,7 +11,7 @@ server.use(express.json());
 // setup rate limiter
 server.use(limiter);
 // setup helmet
-server.use(helmet);
+server.use(helmet());
 
 // setup routes here
 server.use("/api/v1/auth", authRouter);

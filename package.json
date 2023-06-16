@@ -9,7 +9,7 @@
     "dev": "nodemon --watch src --exec ts-node src/index.ts",
     "build": "tsc",
     "dev:migrations": "knex migrate:latest --knexfile=src/config/knex.config.ts --env=development",
-    "prod:migrations": "knex migrate:latest --knexfile=./config/knex.config.ts --env=production"
+    "prod:migrations": "knex migrate:latest --knexfile=src/config/knex.config.ts --env=production"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "express": "^4.18.2",
     "express-rate-limit": "^6.7.0",
     "express-validation": "^4.1.0",
+    "helmet": "^7.0.0",
     "http-status-codes": "^2.2.0",
     "jsonwebtoken": "^9.0.0",
     "knex": "^2.4.2",

@@ -3,11 +3,10 @@ import { StatusCodes } from "http-status-codes";
 import bcrypt from "bcrypt";
 import { ApiResponse } from "../types/response.type";
 import jwt from "jsonwebtoken";
-import db from "../knexfile";
+import db from "../database/knexfile";
 import config from "../config/config";
 import * as uuid from "uuid";
 import { User } from "../types/user.type";
-
 /**
  * check if user exists
  * @param email : string
@@ -88,7 +87,6 @@ export const loginUser = async (
 
     //check if user exists
     const userExists = await checkUserExistsByEmail(email);
-
     if (!userExists)
       return res
         .status(StatusCodes.NOT_FOUND)

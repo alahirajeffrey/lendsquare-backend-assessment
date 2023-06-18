@@ -7,8 +7,6 @@ dotenv.config();
 
 let db;
 
-logger.info(config.NODE_ENV);
-
 if (config.NODE_ENV === "testing") {
   db = knex({
     client: "sqlite3",

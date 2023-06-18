@@ -31,9 +31,15 @@ export const validateCreateWallet = {
   }),
 };
 
-export const validateGetWalletDetails = {
+export const validateGetWalletDetailsWithUserId = {
   params: Joi.object({
     userId: Joi.string().uuid().required(),
+  }),
+};
+
+export const validateGetWalletDetailsWithWalletId = {
+  params: Joi.object({
+    walletId: Joi.string().uuid().required(),
   }),
 };
 

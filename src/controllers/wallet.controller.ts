@@ -6,11 +6,11 @@ import { Wallet } from "../types/wallet.type";
 import * as uuid from "uuid";
 
 /**
- * checks if a user already has a wallet
+ * checks if a user has a wallet with user id
  * @param userId : string
  * @returns : null or wallet details
  */
-const checkWalletExists = async (userId: string): Promise<Wallet> => {
+const checkWalletExistsWithUserId = async (userId: string): Promise<Wallet> => {
   return await db
     .queryBuilder()
     .select()
@@ -18,6 +18,23 @@ const checkWalletExists = async (userId: string): Promise<Wallet> => {
     .where({ userId: userId })
     .first();
 };
+
+/**
+ * checks if a user has a wallet with wallet id
+ * @param userId : string
+ * @returns : null or wallet details
+ */
+const checkWalletExistsWithWalletId = async (
+  walletId: string
+): Promise<Wallet> => {
+  return await db
+    .queryBuilder()
+    .select()
+    .from("wallets")
+    .where({ id: walletId })
+    .first();
+};
+
 /**
  * create a wallet for user
  * @param req : request object containing userId
@@ -31,7 +48,7 @@ export const createWallet = async (
     const { userId } = req.body;
 
     // ensure only one wallet can be created per user
-    const walletExists = await checkWalletExists(userId);
+    const walletExists = await checkWalletExistsWithUserId(userId);
     if (walletExists) {
       return res
         .status(StatusCodes.BAD_REQUEST)
@@ -49,7 +66,7 @@ export const createWallet = async (
       })
       .into("wallets");
 
-    return res.status(StatusCodes.OK).json({
+    return res.status(StatusCodes.CREATED).json({
       message: "wallet created",
       data: {
         walletId: walletId,
@@ -76,7 +93,41 @@ export const getWalletDetailsWithUserId = async (
     const { userId } = req.params;
 
     // check if wallet exists
-    const walletExists = await checkWalletExists(userId);
+    const walletExists = await checkWalletExistsWithUserId(userId);
+    if (!walletExists) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "wallet does not exist" });
+    }
+    return res.status(StatusCodes.OK).json({
+      message: "wallet found",
+      data: {
+        id: walletExists.id,
+        balance: walletExists.balance,
+        createdAt: walletExists.createdAt,
+      },
+    });
+  } catch (error: any) {
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: error.message });
+  }
+};
+
+/**
+ *  get wallet details via wallet id
+ * @param req: request object containing userId params
+ * @param res: response object
+ */
+export const getWalletDetailsWithWalletId = async (
+  req: Request,
+  res: Response
+): Promise<Response<ApiResponse>> => {
+  try {
+    const { walletId } = req.params;
+
+    // check if wallet exists
+    const walletExists = await checkWalletExistsWithWalletId(walletId);
     if (!walletExists) {
       return res
         .status(StatusCodes.NOT_FOUND)

@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { Request, Response } from "express";
-import db from "../knexfile";
+import db from "../database/knexfile";
 import { ApiResponse } from "../types/response.type";
 import { Wallet } from "../types/wallet.type";
 import * as uuid from "uuid";

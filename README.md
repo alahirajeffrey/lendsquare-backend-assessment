@@ -160,13 +160,42 @@ $ npm run test
 }
 ```
 
-### **Get wallet**
+### **Get wallet with user id**
 
-**URL:** `/api/v1/wallet/user/:walletId`
+**URL:** `/api/v1/wallet/user/:userId`
 
 **Method:** `GET`
 
 **Description:** Get a user's wallet via user id.
+
+**Request Params:**
+
+```json
+{
+  "userId": "5c32fe74-3986-4e20-b054-4e6a15d848bb"
+}
+```
+
+**Response:**
+
+```json
+{
+  "message": "wallet found"
+   "data" : {
+    "walletId":"6bd32e74-2386-rf20-b054-4e6a15d848bb",
+    "balance":0,
+    "createdAt": 17/5/2022
+   }
+}
+```
+
+### **Get wallet with wallet id**
+
+**URL:** `/api/v1/wallet/:walletId`
+
+**Method:** `GET`
+
+**Description:** Get a user's wallet via wallet id.
 
 **Request Params:**
 

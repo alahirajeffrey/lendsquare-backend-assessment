@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"email\":\"johndoe@gmail.com\",\r\n  \"firstName\" : \"john\",\r\n  \"lastName\":\"doe\",\r\n  \"password\":\"password\"\r\n}",
+					"raw": "{\r\n  \"email\":\"johndoe@mail.com\",\r\n  \"firstName\" : \"john\",\r\n  \"lastName\":\"doe\",\r\n  \"password\":\"password\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -20,18 +20,12 @@
 					}
 				},
 				"url": {
-					"raw": "https://alahirajeffrey-lendsqr-be-test.onrender.com/api/v1/auth/register",
+					"raw": "https://alahirajeffrey-lendsqr-be-test.onrender.comc",
 					"protocol": "https",
 					"host": [
 						"alahirajeffrey-lendsqr-be-test",
 						"onrender",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"auth",
-						"register"
+						"comc"
 					]
 				}
 			},
@@ -86,7 +80,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"userId\":\"90ef2635-30b4-400a-9c55-1b8f2e38056d\"}",
+					"raw": "{\"userId\":\"2f6709f9-0514-47fd-930b-be7bdd676afb\"}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -245,7 +239,7 @@
 			"response": []
 		},
 		{
-			"name": "get wallet details",
+			"name": "get wallet details with user id",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -307,6 +301,39 @@
 						"transaction",
 						"wallet",
 						"cbb009ed-8474-46d2-bfa9-95417e3d93b2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get wallet details with wallet id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZWYyNjM1LTMwYjQtNDAwYS05YzU1LTFiOGYyZTM4MDU2ZCIsImlhdCI6MTY4NjkyMDExMywiZXhwIjoxNjg2OTIxOTEzfQ.70m8IrP6b9Rom5YXKYLiNvieNi8JpxyfjPoDk-720LE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://alahirajeffrey-lendsqr-be-test.onrender.com/api/v1/wallet/90ef2635-30b4-400a-9c55-1b8f2e38056d",
+					"protocol": "https",
+					"host": [
+						"alahirajeffrey-lendsqr-be-test",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wallet",
+						"90ef2635-30b4-400a-9c55-1b8f2e38056d"
 					]
 				}
 			},

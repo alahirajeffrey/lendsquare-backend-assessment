@@ -1,6 +1,6 @@
 import { ExtractJwt, Strategy } from "passport-jwt";
 import passport from "passport";
-import db from "../knexfile";
+import db from "../database/knexfile";
 
 const ACCESS_TOKEN_SECRET = process.env.JWT_SECRET || "access_secret";
 

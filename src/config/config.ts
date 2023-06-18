@@ -11,6 +11,8 @@ const config = {
 
   JWT_SECRET: String(process.env.JWT_SECRET),
   EXPIRES_IN: String(process.env.EXPIRES_IN),
+
+  NODE_ENV: String(process.env.NODE_ENV),
 };
 
 export default config;

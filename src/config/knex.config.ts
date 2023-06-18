@@ -17,7 +17,16 @@ module.exports = {
     seeds: {
       directory: "../database/seeds",
     },
-    setTimeout: 1000000,
   },
-  // Add other environments if needed (e.g., production, testing)
+  testing: {
+    client: "sqlite3",
+    connection: ":memory:",
+    useNullAsDefault: true,
+    migrations: {
+      directory: "../database/migrations",
+    },
+    seeds: {
+      directory: "../database/seeds",
+    },
+  },
 };

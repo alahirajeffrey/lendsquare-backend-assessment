@@ -369,3 +369,12 @@ $ npm run test
   "data": [{}, {}]
 }
 ```
+
+## Possible Areas of improvement
+
+- Improved authentication and authorization
+- Use of refresh tokens along side access tokens
+
+## Author
+
+[Alahira Jeffrey](<(https://github.com/alahirajeffrey)>)

@@ -69,7 +69,7 @@ export const createWallet = async (
     return res.status(StatusCodes.CREATED).json({
       message: "wallet created",
       data: {
-        walletId: walletId,
+        id: walletId,
         balance: 0,
       },
     });

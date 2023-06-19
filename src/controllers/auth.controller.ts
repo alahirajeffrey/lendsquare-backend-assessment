@@ -24,7 +24,7 @@ const checkUserExistsByEmail = async (email: string): Promise<User> => {
  * registers a new user
  * @param req : request object containing email and password
  * @param res : response object
- * @returns : status code and message
+ * @returns : status code, message and user data
  */
 export const registerUser = async (
   req: Request,
@@ -45,7 +45,7 @@ export const registerUser = async (
     const saltRounds = 12;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    const user = {
+    const user: User = {
       id: uuid.v4(),
       firstName: firstName,
       lastName: lastName,
@@ -101,13 +101,9 @@ export const loginUser = async (
     }
 
     // generate access tokens if password match
-    const accessToken = jwt.sign(
-      { id: userExists.id },
-      config.JWT_SECRET || "secret",
-      {
-        expiresIn: config.EXPIRES_IN,
-      }
-    );
+    const accessToken = jwt.sign({ id: userExists.id }, config.JWT_SECRET, {
+      expiresIn: config.EXPIRES_IN,
+    });
 
     return res.status(StatusCodes.OK).json({ accessToken: accessToken });
   } catch (error: any) {

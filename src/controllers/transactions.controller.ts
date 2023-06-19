@@ -5,6 +5,7 @@ import { ApiResponse } from "../types/response.type";
 import { Wallet } from "../types/wallet.type";
 import * as uuid from "uuid";
 import logger from "../helpers/logger";
+import { Transaction } from "../types/transaction.type";
 
 /**
  *
@@ -30,6 +31,8 @@ export const getWalletTransactions = async (
 ): Promise<Response<ApiResponse>> => {
   try {
     const { walletId } = req.params;
+    const page = parseInt(req.query.page as string) || 1;
+    const itemsPerPage = parseInt(req.query.itemsPerPage as string) || 10;
 
     // Check to see if wallet extists
     const walletExists = await checkWalletExists(walletId);
@@ -39,16 +42,26 @@ export const getWalletTransactions = async (
         .json({ message: "wallet does not exist" });
     }
 
-    // get transactions
-    const transactions = await db
+    // get paginated transactions
+    const transactions: Transaction[] = await db
       .queryBuilder()
       .select()
       .from("transactions")
-      .where({ senderWalletId: walletId });
+      .where({ senderWalletId: walletId })
+      .offset((page - 1) * itemsPerPage)
+      .limit(itemsPerPage);
 
-    return res
-      .status(StatusCodes.OK)
-      .json({ message: "transaction details", data: transactions });
+    // calculate total number of pages returned
+    const totalPages = Math.ceil(transactions.length / itemsPerPage);
+
+    return res.status(StatusCodes.OK).json({
+      message: "transaction details",
+      data: {
+        page: page,
+        totalPages: totalPages,
+        transactions: transactions,
+      },
+    });
   } catch (error: any) {
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -91,7 +104,6 @@ export const fundAccount = async (
           .where("id", walletId)
           .update({ balance: balanceAfterFunding });
 
-        logger.info("raeching here");
         // create transaction object
         const transactionDetails = {
           id: uuid.v4(),

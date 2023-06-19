@@ -1,12 +1,11 @@
 import { ExtractJwt, Strategy } from "passport-jwt";
 import passport from "passport";
 import db from "../database/knexfile";
-
-const ACCESS_TOKEN_SECRET = process.env.JWT_SECRET || "access_secret";
+import config from "./config";
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: ACCESS_TOKEN_SECRET,
+  secretOrKey: config.JWT_SECRET,
 };
 
 const jwtStrategy = new Strategy(jwtOptions, async (payload, done) => {
@@ -32,5 +31,3 @@ const jwtStrategy = new Strategy(jwtOptions, async (payload, done) => {
 });
 
 passport.use(jwtStrategy);
-
-// export default passport;

@@ -37,7 +37,7 @@ describe("Wallet tests", () => {
       expect(response.statusCode == 201);
       expect(response.body).toHaveProperty("message", "wallet created");
       expect(response.body).toHaveProperty("data");
-      expect(response.body.data).toHaveProperty("walletId");
+      expect(response.body.data).toHaveProperty("id");
       expect(response.body.data).toHaveProperty("balance", 0);
     });
 

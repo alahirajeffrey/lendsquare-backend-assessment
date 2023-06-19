@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<any> {
     (table: Knex.TableBuilder) => {
       table.string("id").primary();
       table.string("userId").references("users.id").onDelete("CASCADE");
-      table.integer("balance");
+      table.float("balance");
       table.timestamp("createdAt").defaultTo(knex.fn.now());
     }
   );

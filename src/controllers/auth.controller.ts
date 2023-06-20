@@ -107,6 +107,7 @@ export const loginUser = async (
 
     return res.status(StatusCodes.OK).json({ accessToken: accessToken });
   } catch (error: any) {
+    console.log(error);
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({ message: error.message });

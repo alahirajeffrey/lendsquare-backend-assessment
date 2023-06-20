@@ -105,7 +105,7 @@ export const loginUser = async (
       { id: userExists.id },
       config.JWT_SECRET || "secret",
       {
-        expiresIn: config.EXPIRES_IN,
+        expiresIn: config.EXPIRES_IN || "30m",
       }
     );
 

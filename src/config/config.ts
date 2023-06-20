@@ -9,8 +9,8 @@ const config = {
   MYSQL_DATABASE: String(process.env.MYSQL_DATABASE),
   MYSQL_PORT: Number(process.env.MYSQL_PORT),
 
-  JWT_SECRET: String(process.env.JWT_SECRET),
-  EXPIRES_IN: String(process.env.EXPIRES_IN),
+  JWT_SECRET: process.env.JWT_SECRET || "secret",
+  EXPIRES_IN: process.env.EXPIRES_IN || "30m",
 
   NODE_ENV: String(process.env.NODE_ENV),
 };

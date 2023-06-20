@@ -4,7 +4,7 @@
   "description": "Assessment for lendsquare's backend engineer task",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=testing jest",
+    "test": "cross-env NODE_ENV=testing jest --runInBand",
     "start": "node build/src/index.js",
     "dev": "nodemon --watch src --exec ts-node src/index.ts",
     "build": "tsc",

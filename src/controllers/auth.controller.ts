@@ -101,11 +101,17 @@ export const loginUser = async (
     }
 
     // generate access tokens if password match
-    const accessToken = jwt.sign({ id: userExists.id }, config.JWT_SECRET, {
-      expiresIn: config.EXPIRES_IN,
-    });
+    const accessToken = jwt.sign(
+      { id: userExists.id },
+      config.JWT_SECRET || "secret",
+      {
+        expiresIn: config.EXPIRES_IN,
+      }
+    );
 
-    return res.status(StatusCodes.OK).json({ accessToken: accessToken });
+    return (
+      res.status(StatusCodes.OK).json({ accessToken: accessToken }) || "30m"
+    );
   } catch (error: any) {
     console.log(error);
     return res
